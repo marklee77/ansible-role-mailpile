@@ -1,10 +1,10 @@
 ---
-- name: restart gitlab
+- name: restart mailpile
   service:
     name: "{{ item }}"
     state: restarted
   with_items:
-    - gitlab
+    - mailpile
   notify:
     - restart nginx
  
