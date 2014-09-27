@@ -1,0 +1,16 @@
+---
+- name: restart gitlab
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - gitlab
+  notify:
+    - restart nginx
+ 
+- name: restart nginx
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - nginx
