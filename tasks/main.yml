@@ -6,9 +6,11 @@
     update_cache: yes 
     cache_valid_time: 600
   with_items:
+    - git
     - gnupg
     - openssl
     - python
+    - python-pip
 
 - name: ensure that mailpile group exists
   group:
@@ -20,16 +22,27 @@
     name: mailpile
     group: mailpile
     home: /srv/mailpile
-    createhome: yes
+    createhome: no
     state: present
 
 - name: check mailpile out of git repository
-  sudo_user: git
   git:
     repo: https://github.com/pagekite/Mailpile.git
     version: "{{ mailpile_checkout_version }}"
     dest: /srv/mailpile
     update: no
+
+- name: ensure /srv/mailpile is owned by mailpile user
+  file:
+    path: /srv/mailpile
+    owner: mailpile
+    group: mailpile
+    recurse: yes
+
+- name: ensure that requirements are installed using pip
+  pip:
+    requirements: /srv/mailpile/requirements.txt
+    state: latest
 
 #- name: update /etc/nginx/sites-available/mailpile from template
 #  template:
