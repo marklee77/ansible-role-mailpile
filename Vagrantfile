@@ -17,15 +17,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "getroles.yml"
-  end
-
-  config.vm.provision "ansible" do |ansible|
     ansible.playbook = "site.yml"
     ansible.extra_vars = {
-      roundcube_http_port: 8080,
-      roundcube_enable_ssl: false,
-      roundcube_require_ssl: false,
+      mailpile_http_port: 8080,
+      mailpile_enable_ssl: false,
+      mailpile_require_ssl: false,
     }
   end
 
