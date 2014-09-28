@@ -8,9 +8,13 @@
   with_items:
     - git
     - gnupg
+    - libxml2-dev
+    - libxslt-dev
     - openssl
     - python
+    - python-dev
     - python-pip
+    - zlib1g-dev
 
 - name: ensure that mailpile group exists
   group:
